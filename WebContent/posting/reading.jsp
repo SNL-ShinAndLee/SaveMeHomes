@@ -38,7 +38,7 @@
 	<div class="row">
 		<div class="offset-4 col-4 text-center">
 			<button id="listbtn" type="button" class="m-3 btn btn-outline-secondary">목록으로</button>
-			<button id="modify" type="button" class="m-3 btn btn-outline-success">수정하기</button>
+			<button id="modifybtn" type="button" class="m-3 btn btn-outline-success">수정하기</button>
 		</div>
 	</div>
 </div>
@@ -47,6 +47,11 @@
 	function searchParam(key) {
 	  return new URLSearchParams(location.search).get(key);
 	};
+	function getContextPath() {
+	    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+	}
+	const root = getContextPath();
 	
 	const idx = searchParam("idx");
 	document.getElementById("idx").innerHTML = idx;
@@ -57,6 +62,21 @@
 	
 	const listbtn = document.getElementById("listbtn");
 	listbtn.addEventListener("click", getBack);
+	
+	function modifying(){
+		const act = searchParam("act");
+		let url;
+		if(act == "notice"){
+			url = root + "/posting?act=noticeModify&idx="+idx;
+		}
+		else{
+			url = root + "/posting?act=boardModify&idx="+idx;
+		}
+		console.log(url);
+		location.href = url;
+	}
+	const modifybtn = document.getElementById("modifybtn");
+	modifybtn.addEventListener("click", modifying);
 	
 </script>
 

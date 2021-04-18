@@ -72,6 +72,26 @@ public class PostingController extends HttpServlet {
 			//게시글 저장 서비스
 			response.sendRedirect(root+"/posting/board.jsp");
 		}
+		else if("noticeModify".equals(act)) {
+			String url = "/posting/modify.jsp";
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+		else if("boardModify".equals(act)) {
+			String url = "/posting/modify.jsp";
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+		else if("noticeModifiedSave".equals(act)) {
+			//공지사항 저장 서비스
+//			System.out.println(request.getParameter("idx"));
+//			System.out.println(request.getParameter("writeId"));
+//			System.out.println(request.getParameter("title"));
+//			System.out.println(request.getParameter("contents"));
+			response.sendRedirect(root+"/posting/notice.jsp");
+		}
+		else if("boardModifiedSave".equals(act)) {
+			//게시글 저장 서비스
+			response.sendRedirect(root+"/posting/board.jsp");
+		}
 		else {
 			response.sendRedirect(root);
 		}
