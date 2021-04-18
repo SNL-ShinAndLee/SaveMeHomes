@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Save Me Homes : MainPage</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="${root}/css/style.css"/>
 </head>
 <body>
 
@@ -28,7 +28,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="${root}">
-      <img alt="logo" src="images/logo.png" class="logo"/>
+      <img alt="logo" src="${root}/images/logo.png" class="logo"/>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -36,9 +36,9 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="${root}">Home</a>
-        <a class="nav-link" href="#">공지사항</a>
-        <a class="nav-link" href="#">오늘의 뉴스</a>
-        <a class="nav-link" href="#">게시판</a>
+        <a class="nav-link" href="${root}/main?act=notice">공지사항</a>
+        <a class="nav-link" href="${root}/main?act=todaynews">오늘의 뉴스</a>
+        <a class="nav-link" href="${root}/main?act=board">게시판</a>
         
         <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
       </div>
@@ -46,7 +46,7 @@
   </div>
 </nav>
 
-<!-- login modal -->
+<!-- sign in modal -->
 <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -54,7 +54,7 @@
         <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form class="p-4">
+      <form class="p-4" method="post" action="${root}/user?act=signin">
         <div class="modal-body">
           <div class="mb-3">
             <label for="signInId" class="form-label">ID</label>
@@ -92,7 +92,7 @@
         <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form class="p-4">
+      <form class="p-4" method="post" action="${root}/user?act=signup">
         <div class="modal-body">
             <div class="mb-3">
               <label for="signUpId" class="form-label">ID</label>
@@ -122,7 +122,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Sign Up</button>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
         </div>
       </form>
     </div>

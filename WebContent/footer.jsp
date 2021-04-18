@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <div class="bg-light">
   <div class="container">
     <div class="row align-items-center">
-      <img class="col-3 logo" alt="logo" src="images/logo.png"/>
+      <img class="col-3 logo" alt="logo" src="${root}/images/logo.png"/>
       <div class="col-9 fs-3"> Find Us</div>
     </div>
     <div class="row">
