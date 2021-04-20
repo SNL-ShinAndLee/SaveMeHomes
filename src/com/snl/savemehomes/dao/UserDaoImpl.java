@@ -68,15 +68,50 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserDto UpdateUser(UserDto userDto) {
+	public boolean UpdateUser(UserDto userDto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    String query = new String();
+	    
+	    query = "UPDATE User SET userPass=?, userName=?, userAddress=? WHERE userId=? ";	//idx로 찾을 지 id로 찾을 지?
+	    try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userDto.getUserPass());
+			pstmt.setString(2, userDto.getUserName());
+			pstmt.setString(3, userDto.getUserAddress());
+			pstmt.setString(4, userDto.getUserId());
+			pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.close(pstmt, conn);
+		}
 		
-		return null;
+		return true;
 	}
 
 	@Override
-	public boolean DeleteUser(UserDto userDto) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean DeleteUser(String userId, String userPass) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    String query = new String();
+	    
+	    query = "DELETE FROM User WHERE userID=? and userPass=?";
+	    try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(1, userPass);
+			pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.close(pstmt, conn);
+		}
+		return true;
 	}
 
 }

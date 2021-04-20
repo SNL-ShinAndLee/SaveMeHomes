@@ -12,16 +12,20 @@
               <input type="text" class="form-control" id="modifyId" placeholder="아이디" disabled readonly>
             </div>
             <div class="mb-3">
-              <label for="modifyPassword" class="form-label">Password</label>
-              <input type="password" class="form-control" id="modifyPassword" placeholder="Password">
+              <label for="originPassword" class="form-label">Origin Password</label>
+              <input type="password" class="form-control" id="originPassword" placeholder="Password" required>
             </div>
             <div class="mb-3">
-              <label for="modifyPasswordCheck" class="form-label">Password Check</label>
-              <input type="password" class="form-control" id="modifyPasswordCheck" placeholder="Password">
+              <label for="modifyPassword" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="modifyPassword" placeholder="Password" required>
+            </div>
+            <div class="mb-3">
+              <label for="modifyPasswordCheck" class="form-label">New Password Check</label>
+              <input type="password" class="form-control" id="modifyPasswordCheck" placeholder="Password" required>
             </div>
             <div class="mb-3">
               <label for="modifyName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="modifyName">
+              <input type="text" class="form-control" id="modifyName" required>
             </div>
             
             <div class="mb-3">
@@ -35,11 +39,10 @@
         </div>
         <div>
           <button type="button" class="btn btn-outline-secondary">취소</button>
-		  <button type="submit" class="btn btn-outline-primary">수정</button>
+		  <button id="modifyBtn" type="submit" class="btn btn-outline-primary" disabled>수정</button>
         </div>
       </form>
 
-
-
+<script src="${root}/js/usermodify.js"></script>
 <%-- <%@ include file = "footer.jsp" %> --%>
 <c:import url = "../footer.jsp"/>
