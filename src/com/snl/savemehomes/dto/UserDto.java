@@ -11,6 +11,8 @@ public class UserDto {
 	private String userEmail;
 	private String userAddress;
 	
+	public UserDto() {}
+	
 	public UserDto(String userId, String userPass, String userName, UserRole userRole, String userEmail,
 			String userAddress) {
 		super();

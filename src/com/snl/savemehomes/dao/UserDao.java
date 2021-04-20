@@ -7,4 +7,5 @@ public interface UserDao {
 	public UserDto ReadUser(String userId, String userPass);
 	public boolean UpdateUser(UserDto userDto);
 	public boolean DeleteUser(String userId, String userPass);
+	public boolean ReadUserById(String userId);
 }
