@@ -44,8 +44,8 @@ public class UserController extends HttpServlet {
 		else if("signup".equals(act)) {
 			if(!request.getParameter("signUpPassword").equals(request.getParameter("signUpPasswordCheck"))) {
 				request.setAttribute("msg", "회원가입에 실패 했습니다.");
-				path = "/error/error500.jsp";
-				request.getRequestDispatcher(path).forward(request, response);
+				path = root + "/error/signuperror.jsp";
+				response.sendRedirect(path);
 				return;
 			}		
 			UserDto userDto = new UserDto();
@@ -61,15 +61,15 @@ public class UserController extends HttpServlet {
 			if(success) {
 				System.out.println("성공이다");
 				request.setAttribute("msg", "회원가입 성공");
-				path = "/error/error500.jsp";
+				path = root + "/success/signupsuccess.jsp" ;
 			}
 			else {
 				System.out.println("성공이다");
 				request.setAttribute("msg", "회원가입에 실패 했습니다.");
-				path = "/error/error500.jsp";
+				path = root + "/error/signuperror.jsp";
 			}
-			request.getRequestDispatcher(path).forward(request, response);
-		
+//			request.getRequestDispatcher(path).forward(request, response);
+			response.sendRedirect(path);
 
 		}
 		else if("modifyUser".equals(act)) {

@@ -17,8 +17,8 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="${root}">Save Me Homes</a>
     <form class="d-flex">
-      <button class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
-      <button class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
+      <button id="headersigninBtn" class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
+      <button id="headersignupBtn" class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
     </form>
   </div>
 </nav>
@@ -34,7 +34,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div id="headermenuNav" class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="${root}">Home</a>
         <a class="nav-link" href="${root}/main?act=notice">공지사항</a>
         <a class="nav-link" href="${root}/main?act=todaynews">오늘의 뉴스</a>
@@ -148,16 +148,25 @@
   </div>
 </div>
 
+<button type="button" class="d-none btn btn-primary" id="signUpSuccessBtn">Show live toast</button>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+  <div id="signUpSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="${root}/images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
+      <strong class="me-auto">회원가입 성공</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      	로그인 후 서비스를 이용할 수 있습니다.
+    </div>
+  </div>
+</div>
 
 
 
 
 <script>
-const signupform = document.getElementById("signUpForm");
-function test(e){
-  e.preventDefault(); //????dkkk
-  console.log(e);
-}
-signupform.addEventListner("submit", test);
+
 </script>
       

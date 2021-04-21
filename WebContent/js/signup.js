@@ -6,6 +6,19 @@ function getContextPath() {
     return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
 }
 
+const signupsuccesstoastEl = document.querySelector("#signUpSuccess");
+const signupsuccesstoast = new bootstrap.Toast(signupsuccesstoastEl, {autohide:false});
+const signupsuccessbtn = document.getElementById("signUpSuccessBtn");
+const signupform = document.getElementById("signUpForm");
+
+function successToast() {
+	signupsuccesstoast.show();
+	console.log(signupsuccesstoast);
+}
+
+signupsuccessbtn.addEventListener("click", successToast);
+
+
 // id 중복 확인
 const duptoastEl = document.querySelector("#dupToast");
 const duptoast = new bootstrap.Toast(duptoastEl, {autohide:false});
