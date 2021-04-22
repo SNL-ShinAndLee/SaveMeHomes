@@ -48,7 +48,7 @@ public class UserDaoImpl implements UserDao {
 	    
 	    return ret;
 	}
-
+	
 	@Override
 	public UserDto ReadUser(String userId, String userPass) {
 		UserDto userDto = null;
@@ -58,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 		ResultSet rs = null;
 	    String query = new String();
 	    
-	    query = "SELECT userId, userPass, userName, userEmail, userAdress"
+	    query = "SELECT userId, userPass, userName, userEmail, userAddress"
 	    		+ " FROM User WHERE userId=? and userPass=?";
 	    try {
 	    	conn = DBUtil.getConnect();
@@ -86,18 +86,20 @@ public class UserDaoImpl implements UserDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 	    String query = new String();
-	    
-	    query = "UPDATE User SET userPass=?, userName=?, userAddress=? WHERE userId=? ";	//idx로 찾을 지 id로 찾을 지?
+	    System.out.println("update user dao");
+	    query = "UPDATE User SET userPass=?, userName=?, userAddress=? WHERE userId=?";	//idx로 찾을 지 id로 찾을 지?
 	    try {
 	    	conn = DBUtil.getConnect();
 			pstmt = conn.prepareStatement(query);
+
 			pstmt.setString(1, userDto.getUserPass());
 			pstmt.setString(2, userDto.getUserName());
 			pstmt.setString(3, userDto.getUserAddress());
 			pstmt.setString(4, userDto.getUserId());
-			pstmt.executeQuery();
-			ret = true;
 			
+			pstmt.executeUpdate(); //update, insert, delete => ???
+
+			ret = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
@@ -115,14 +117,16 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pstmt = null;
 	    String query = new String();
 	    
+	    System.out.println("delete dao");
 	    query = "DELETE FROM User WHERE userID=? and userPass=?";
 	    try {
 	    	conn = DBUtil.getConnect();
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
-			pstmt.setString(1, userPass);
-			pstmt.executeQuery();
-			ret = true;
+			pstmt.setString(2, userPass);
+			if(pstmt.executeUpdate() == 0) ret = false;
+			else ret = true;
+			System.out.println("delete dao try");
 		} 
 	    catch (SQLException e) {
 			e.printStackTrace();

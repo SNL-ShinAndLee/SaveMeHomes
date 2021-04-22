@@ -27,21 +27,28 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto signIn(String userId, String userPass) {
-		// TODO Auto-generated method stub
-		return null;
+		UserDto userDto = UserDaoImpl.getUserDao().ReadUser(userId, userPass);
+		return userDto;
 	}
 
+	@Override
+	public boolean isCorrectPass(String userId, String userPass) {
+		UserDto userDto = UserDaoImpl.getUserDao().ReadUser(userId, userPass);
+		
+		if(userDto!=null && userPass.equals(userDto.getUserPass())) return true;
+		return false;
+	}
+	
 	@Override
 	public boolean modify(UserDto userDto) {
-		// TODO Auto-generated method stub
-		return false;
+		return UserDaoImpl.getUserDao().UpdateUser(userDto);
 	}
 
 	@Override
-	public boolean withdrawal(UserDto userDto) {
-		// TODO 회원탈퇴
-		return false;
+	public boolean withdraw(String userId, String userPass) {
+		return UserDaoImpl.getUserDao().DeleteUser(userId, userPass);
 	}
+
 
 
 }

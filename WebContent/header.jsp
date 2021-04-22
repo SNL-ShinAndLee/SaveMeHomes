@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
+<c:if test="${cookie.saveId.value != null}">
+  <c:set var="saveId" value="${cookie.saveId.value}"/>
+  <c:set var="idcheck" value=" checked=\"checked\""/>
+</c:if>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,10 +21,22 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="${root}">Save Me Homes</a>
-    <form class="d-flex">
-      <button id="headersigninBtn" class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">Sign In</button>
-      <button id="headersignupBtn" class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</button>
-    </form>
+    <div class="d-flex align-items-center">
+    
+      <c:if test="${signInUser == null}">
+        <button id="headersigninBtn" class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signInModal">로그인</button>
+        <button id="headersignupBtn" class="btn btn-outline-light mx-1" type="button" data-bs-toggle="modal" data-bs-target="#signUpModal">회원가입</button>
+      </c:if>
+      <c:if test="${signInUser != null}"> 
+        <c:set var="signInUserId" value = "${signInUser.getUserId()}"/>
+        <c:set var="signInUserName" value = "${signInUser.getUserName()}"/>
+      
+        <div class="fs-5 text-light mx-3">${signInUserId}(${signInUserName})님 </div>
+        <button id="headeruserinfoBtn" class="btn btn-outline-light mx-1" type="button">회원정보</button>
+        <button id="headersignoutBtn" class="btn btn-outline-light mx-1" type="button">로그아웃</button>
+      </c:if>
+      
+    </div>
   </div>
 </nav>
 
@@ -58,15 +75,15 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="signInId" class="form-label">ID</label>
-            <input type="text" class="form-control" id="signInId">
+            <input type="text" class="form-control" id="signInId" name="signInId" value="${saveId}">
           </div>
           <div class="mb-3">
             <label for="signInPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="signInPassword" placeholder="Password">
+            <input type="password" class="form-control" id="signInPassword" name="signInPassword" placeholder="Password">
           </div>
           <div class="mb-3">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="signInCheck">
+              <input type="checkbox" class="form-check-input" id="signInCheck" name="signInCheck" value="saveCheck" ${idcheck}>
               <label class="form-check-label" for="signInCheck">
                 Remember me
               </label>
@@ -147,26 +164,3 @@
     </div>
   </div>
 </div>
-
-<button type="button" class="d-none btn btn-primary" id="signUpSuccessBtn">Show live toast</button>
-
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-  <div id="signUpSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <img src="${root}/images/logo.png" class="rounded me-2" alt="logo" style="width: 25px;">
-      <strong class="me-auto">회원가입 성공</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      	로그인 후 서비스를 이용할 수 있습니다.
-    </div>
-  </div>
-</div>
-
-
-
-
-<script>
-
-</script>
-      

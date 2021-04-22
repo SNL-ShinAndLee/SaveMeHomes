@@ -5,19 +5,7 @@ function getContextPath() {
     var hostIndex = location.href.indexOf( location.host ) + location.host.length;
     return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
 }
-
-const signupsuccesstoastEl = document.querySelector("#signUpSuccess");
-const signupsuccesstoast = new bootstrap.Toast(signupsuccesstoastEl, {autohide:false});
-const signupsuccessbtn = document.getElementById("signUpSuccessBtn");
-const signupform = document.getElementById("signUpForm");
-
-function successToast() {
-	signupsuccesstoast.show();
-	console.log(signupsuccesstoast);
-}
-
-signupsuccessbtn.addEventListener("click", successToast);
-
+const root = getContextPath();
 
 // id 중복 확인
 const duptoastEl = document.querySelector("#dupToast");
@@ -39,10 +27,10 @@ function duplicationCheck() {
 	else{
 		//중복체크
 		const root = getContextPath();
-		const url = root + "/user?act=idDuplication&signupid="+signupid.value;
-		console.log(url);
+		const idDuplicationURL = root + "/user?act=idDuplication&signupid="+signupid.value;
+		console.log(idDuplicationURL);
 		console.log(signupid.value);
-		fetch(url).then((response)=>{
+		fetch(idDuplicationURL).then((response)=>{
 			return response.text();
 		}).then((text)=>{
 			if(text.trim() == "true"){
