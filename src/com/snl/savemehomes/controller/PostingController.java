@@ -6,6 +6,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.snl.savemehomes.dto.NoticeDto;
+import com.snl.savemehomes.dto.UserDto;
+import com.snl.savemehomes.service.NoticeServiceImpl;
 
 /**
  * Servlet implementation class PostingController
@@ -63,9 +68,7 @@ public class PostingController extends HttpServlet {
 		}
 		else if("noticeSave".equals(act)) {
 			//공지사항 저장 서비스
-//			System.out.println(request.getParameter("writeId"));
-//			System.out.println(request.getParameter("title"));
-//			System.out.println(request.getParameter("contents"));
+			noticeSave(request, response);
 			response.sendRedirect(root+"/posting/notice.jsp");
 		}
 		else if("boardSave".equals(act)) {
@@ -81,7 +84,7 @@ public class PostingController extends HttpServlet {
 			request.getRequestDispatcher(url).forward(request, response);
 		}
 		else if("noticeModifiedSave".equals(act)) {
-			//공지사항 저장 서비스
+			//공지사항 수정 서비스
 //			System.out.println(request.getParameter("idx"));
 //			System.out.println(request.getParameter("writeId"));
 //			System.out.println(request.getParameter("title"));
@@ -89,12 +92,33 @@ public class PostingController extends HttpServlet {
 			response.sendRedirect(root+"/posting/notice.jsp");
 		}
 		else if("boardModifiedSave".equals(act)) {
-			//게시글 저장 서비스
+			//게시글 수정 서비스
 			response.sendRedirect(root+"/posting/board.jsp");
 		}
 		else {
 			response.sendRedirect(root);
 		}
 	}
+
+	private void noticeSave(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		String noticeWriter = ((UserDto)session.getAttribute("signInUser")).getUserId();
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		
+		NoticeDto noticeDto = new NoticeDto();
+		noticeDto.setNoticeWriter(noticeWriter);
+		noticeDto.setNoticeTitle(title);
+		noticeDto.setNoticeContent(contents);
+		
+		if(!NoticeServiceImpl.getInstance().writeNotice(noticeDto)) {
+			//작성 실패 시 어디로 가지?
+			System.out.println("작성실패");
+			return;
+		}
+		System.out.println("작성성공");
+		//결과를 어떻게 받을 지
+	}
+	
 
 }

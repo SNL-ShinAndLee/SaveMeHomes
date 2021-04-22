@@ -17,7 +17,7 @@
 		<div id="selectOne" class="d-flex justify-content-center fs-1"></div>
 		<div class="mb-3">
 		  <label for="writerId" class="form-label">작성자</label>
-		  <input name="writerId" type="text" class="form-control" id="writerId" placeholder="아이디" disabled readonly>
+		  <input name="writerId" type="text" class="form-control" id="writerId" value="${signInUser.getUserId()}" disabled readonly>
 		</div>
 		<div class="mb-3">
 		  <label for="title" class="form-label">제목</label>
@@ -36,6 +36,7 @@
 
 
 <script>
+	//뒤로가기
 	function getBack() {
 		history.back();
 	}
@@ -43,7 +44,7 @@
 	const listbtn = document.getElementById("listbtn");
 	listbtn.addEventListener("click", getBack);
 	
-	
+	// 공지 or 게시판
 	function searchParam(key) {
 		return new URLSearchParams(location.search).get(key);
 	}
@@ -61,6 +62,9 @@
 	}
 	selectOne();
 
+	//글 작성
+	
+	
 </script>
 
 <%-- <%@ include file = "footer.jsp" %> --%>

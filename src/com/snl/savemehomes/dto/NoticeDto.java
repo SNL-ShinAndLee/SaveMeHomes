@@ -7,6 +7,10 @@ public class NoticeDto {
 	private String noticeDate;
 	private String noticeContent;
 	
+	public NoticeDto() {
+		super();
+	}
+
 	public NoticeDto(String noticeWriter, String noticeTitle, String noticeDate, String noticeContent) {
 		super();
 		this.noticeWriter = noticeWriter;
@@ -33,6 +37,10 @@ public class NoticeDto {
 	
 	public String getNoticeContent() {
 		return noticeContent;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
 
 	public void setNoticeWriter(String noticeWriter) {

@@ -32,8 +32,18 @@ public class UserDto {
 		this.userEmail = userEmail;
 		this.userAddress = userAddress;
 	}
-	
-	
+
+	public UserDto(int idx, String userId, String userPass, String userName, UserRole userRole, String userEmail,
+			String userAddress) {
+		super();
+		this.idx = idx;
+		this.userId = userId;
+		this.userPass = userPass;
+		this.userName = userName;
+		this.userRole = userRole;
+		this.userEmail = userEmail;
+		this.userAddress = userAddress;
+	}
 
 	public int getIdx() {
 		return idx;

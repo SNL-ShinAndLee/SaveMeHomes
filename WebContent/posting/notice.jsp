@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.snl.savemehomes.common.UserRole"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- <%@ include file = "header.jsp" %>--%>
 <c:import url = "../header.jsp"/>
 <div class="container">
 <div class="fs-1 row justify-content-center">공지사항</div>
+
 <span class="d-flex flex-row-reverse">
-	<button id="writebtn" type="button" class="btn btn-outline-dark">글쓰기</button>
+	<c:if test="${signInUser.getUserRole() == UserRole.ADMINISTRATOR}">
+		<button id="writebtn" type="button" class="btn btn-outline-dark">글쓰기</button>
+	</c:if>	
 </span>
 <table class="table table-striped table-hover mt-5">
   <thead>

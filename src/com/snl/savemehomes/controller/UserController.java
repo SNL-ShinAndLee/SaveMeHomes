@@ -74,7 +74,7 @@ public class UserController extends HttpServlet {
 
 	protected void isDuplication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("signupid");
-		boolean duplication = UserServiceImpl.getUserService().idDuplication(id);
+		boolean duplication = UserServiceImpl.getInstance().idDuplication(id);
 		response.getWriter().println(duplication);
 	}
 	protected void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -95,7 +95,7 @@ public class UserController extends HttpServlet {
 		userDto.setUserEmail(request.getParameter("signUpEmail"));
 		userDto.setUserAddress(request.getParameter("signUpAddress"));
 		
-		boolean success = UserServiceImpl.getUserService().signUp(userDto);
+		boolean success = UserServiceImpl.getInstance().signUp(userDto);
 		
 		if(success) {
 			System.out.println("성공이다");
@@ -115,13 +115,15 @@ public class UserController extends HttpServlet {
 		String signInId = request.getParameter("signInId");
 		String signInPassword = request.getParameter("signInPassword");
 		
-		UserDto userDto = UserServiceImpl.getUserService().signIn(signInId, signInPassword);
+		UserDto userDto = UserServiceImpl.getInstance().signIn(signInId, signInPassword);
 		String path = "/index.jsp";
 		if(userDto != null) { // 성공
 //			session 설정
 			HttpSession session = request.getSession();
 			session.setAttribute("signInUser", userDto);
-			
+			System.out.println("-----------------");
+			System.out.println(userDto.getUserRole());
+			System.out.println("-----------------");
 //			Cookie 설정
 			String idSave = request.getParameter("signInCheck");
 			if("saveCheck".equals(idSave)) { // 아이디 저장 O
@@ -171,7 +173,7 @@ public class UserController extends HttpServlet {
 		String signInUserId = ((UserDto)session.getAttribute("signInUser")).getUserId(); 
 		String originPass = map.get("originpass");
 		
-		if(!UserServiceImpl.getUserService().isCorrectPass(signInUserId, originPass)) {
+		if(!UserServiceImpl.getInstance().isCorrectPass(signInUserId, originPass)) {
 			msg="WrongPass";
 			response.getWriter().println(msg);
 			return;
@@ -196,7 +198,7 @@ public class UserController extends HttpServlet {
 		userDto.setUserEmail(map.get("modifyEmail"));
 		userDto.setUserAddress(map.get("modifyAddress"));
 		
-		if(!UserServiceImpl.getUserService().modify(userDto)) {
+		if(!UserServiceImpl.getInstance().modify(userDto)) {
 			msg = "fail";
 			response.getWriter().println(msg);
 			return;
@@ -219,7 +221,7 @@ public class UserController extends HttpServlet {
 		
 		System.out.println(signInUserId);
 		System.out.println(originPass);
-		if(!UserServiceImpl.getUserService().withdraw(signInUserId, originPass)) {
+		if(!UserServiceImpl.getInstance().withdraw(signInUserId, originPass)) {
 			msg = "fail";
 			response.getWriter().println(msg);
 			return;

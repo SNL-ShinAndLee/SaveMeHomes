@@ -1,5 +1,6 @@
 package com.snl.savemehomes.dao;
 
+import com.snl.savemehomes.common.UserRole;
 import com.snl.savemehomes.dto.UserDto;
 
 public interface UserDao {
@@ -8,4 +9,5 @@ public interface UserDao {
 	public boolean UpdateUser(UserDto userDto);
 	public boolean DeleteUser(String userId, String userPass);
 	public boolean ReadUserById(String userId);
+	public UserRole ReadUserRoleById(String userId);
 }

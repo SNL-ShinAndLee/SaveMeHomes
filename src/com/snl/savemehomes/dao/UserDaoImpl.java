@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.snl.savemehomes.common.UserRole;
 import com.snl.savemehomes.dto.UserDto;
 import com.snl.savemehomes.util.DBUtil;
 
@@ -14,7 +15,7 @@ public class UserDaoImpl implements UserDao {
 	
 	private UserDaoImpl() {}
 
-	public static UserDao getUserDao() {
+	public static UserDao getInstance() {
 		if(userDao == null)
 			userDao = new UserDaoImpl();
 		return userDao;
@@ -58,7 +59,7 @@ public class UserDaoImpl implements UserDao {
 		ResultSet rs = null;
 	    String query = new String();
 	    
-	    query = "SELECT userId, userPass, userName, userEmail, userAddress"
+	    query = "SELECT userId, userPass, userName, userEmail, userAddress, idx, userRole"
 	    		+ " FROM User WHERE userId=? and userPass=?";
 	    try {
 	    	conn = DBUtil.getConnect();
@@ -69,6 +70,8 @@ public class UserDaoImpl implements UserDao {
 			if(rs.next()) {
 				userDto = new UserDto(rs.getString(1), rs.getString(2), rs.getString(3), 
 									  rs.getString(4), rs.getString(5));
+				userDto.setIdx(rs.getInt(6));
+				userDto.setUserRole(UserRole.valueOf(rs.getInt(7)));
 			}
 			
 		} catch (SQLException e) {
@@ -86,7 +89,6 @@ public class UserDaoImpl implements UserDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 	    String query = new String();
-	    System.out.println("update user dao");
 	    query = "UPDATE User SET userPass=?, userName=?, userAddress=? WHERE userId=?";	//idx로 찾을 지 id로 찾을 지?
 	    try {
 	    	conn = DBUtil.getConnect();
@@ -117,7 +119,6 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement pstmt = null;
 	    String query = new String();
 	    
-	    System.out.println("delete dao");
 	    query = "DELETE FROM User WHERE userID=? and userPass=?";
 	    try {
 	    	conn = DBUtil.getConnect();
@@ -126,7 +127,6 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(2, userPass);
 			if(pstmt.executeUpdate() == 0) ret = false;
 			else ret = true;
-			System.out.println("delete dao try");
 		} 
 	    catch (SQLException e) {
 			e.printStackTrace();
@@ -164,6 +164,34 @@ public class UserDaoImpl implements UserDao {
 		
 	    if(idCheck==null) return false;
 		return true;
+	}
+
+	@Override
+	public UserRole ReadUserRoleById(String userId) {
+		UserRole userRole = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	    String query = new String();
+	    
+	    query = "SELECT userRole"
+	    		+ " FROM User WHERE userId=?";
+	    try {
+	    	conn = DBUtil.getConnect();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				userRole = UserRole.valueOf(rs.getInt(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(pstmt, conn);
+		}
+		
+		return userRole;
 	}
 
 }
