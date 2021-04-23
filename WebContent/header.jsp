@@ -14,6 +14,7 @@
 <title>Save Me Homes : MainPage</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <link rel="stylesheet" href="${root}/css/style.css"/>
+<script src="${root}/js/header.js"></script>
 </head>
 <body>
 
@@ -32,7 +33,7 @@
         <c:set var="signInUserName" value = "${signInUser.getUserName()}"/>
       
         <div class="fs-5 text-light mx-3">${signInUserId}(${signInUserName})님 </div>
-        <button id="headeruserinfoBtn" class="btn btn-outline-light mx-1" type="button">회원정보</button>
+        <a href="${root}/user?act=userInfo" id="headeruserinfoBtn" class="btn btn-outline-light mx-1" type="button">회원정보</a>
         <button id="headersignoutBtn" class="btn btn-outline-light mx-1" type="button">로그아웃</button>
       </c:if>
       

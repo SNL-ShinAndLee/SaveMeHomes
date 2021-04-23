@@ -1,6 +1,9 @@
 package com.snl.savemehomes.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.naming.NoPermissionException;
 
 import com.snl.savemehomes.common.UserRole;
 import com.snl.savemehomes.dao.NoticeDao;
@@ -22,14 +25,16 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public boolean writeNotice(NoticeDto noticeDto) {
+	public boolean writeNotice(NoticeDto noticeDto) throws NoPermissionException {
 		NoticeDao noticeDao = NoticeDaoImpl.getInstance();
 		UserDao userDao = UserDaoImpl.getInstance();
 		
 		//관리자 확인
 		if(userDao.ReadUserRoleById(noticeDto.getNoticeWriter())
 				!= UserRole.ADMINISTRATOR) {
-			return false;
+			throw new NoPermissionException("관리자 권한이 없습니다");
+
+//			return false;
 		}
 		//공지사항 저장
 		if(!noticeDao.CreateNotice(noticeDto))
@@ -39,27 +44,43 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeDto> readNotice(int pageNum) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<NoticeDto> readNoticeList(int pageNum) {
+		return NoticeDaoImpl.getInstance().ReadNotice(pageNum);
 	}
 
 	@Override
-	public boolean modifyNotice(NoticeDto noticeDto) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean modifyNotice(NoticeDto noticeDto) throws NoPermissionException {
+		NoticeDao noticeDao = NoticeDaoImpl.getInstance();
+		UserDao userDao = UserDaoImpl.getInstance();
+		System.out.println(noticeDto.toString());
+		//수정 권한 확인
+		if(userDao.ReadUserRoleById(noticeDto.getNoticeWriter())
+				!= UserRole.ADMINISTRATOR) {
+			throw new NoPermissionException("관리자 권한이 없습니다");
+		}
+		
+		if(!noticeDao.UpdateNotice(noticeDto)) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean deleteNotice(int idx) {
-		// TODO Auto-generated method stub
-		return false;
+		return NoticeDaoImpl.getInstance().DeleteNotice(idx);
 	}
 
 	@Override
 	public NoticeDto readNoticeByIdx(int idx) {
-		// TODO Auto-generated method stub
-		return null;
+		return NoticeDaoImpl.getInstance().ReadNoticeByIdx(idx);
 	}
 
+	@Override
+	public int readNoticePageCount() {
+		return NoticeDaoImpl.getInstance().ReadNoticePageCount();
+	}
+	
 }
+
+
+

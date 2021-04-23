@@ -1,12 +1,6 @@
 let idCk = false;
 let passCk = false;
 
-function getContextPath() {
-    var hostIndex = location.href.indexOf( location.host ) + location.host.length;
-    return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
-}
-const root = getContextPath();
-
 // id 중복 확인
 const duptoastEl = document.querySelector("#dupToast");
 const duptoast = new bootstrap.Toast(duptoastEl, {autohide:false});

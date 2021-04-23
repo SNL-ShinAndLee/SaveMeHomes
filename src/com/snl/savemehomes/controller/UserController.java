@@ -121,9 +121,6 @@ public class UserController extends HttpServlet {
 //			session 설정
 			HttpSession session = request.getSession();
 			session.setAttribute("signInUser", userDto);
-			System.out.println("-----------------");
-			System.out.println(userDto.getUserRole());
-			System.out.println("-----------------");
 //			Cookie 설정
 			String idSave = request.getParameter("signInCheck");
 			if("saveCheck".equals(idSave)) { // 아이디 저장 O

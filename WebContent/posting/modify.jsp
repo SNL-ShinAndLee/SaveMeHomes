@@ -19,15 +19,15 @@
 		<div id="selectOne" class="d-flex justify-content-center fs-1"></div>
 		<div class="mb-3">
 		  <label for="writerId" class="form-label">작성자</label>
-		  <input name="writerId" type="text" class="form-control" id="writerId" placeholder="아이디" disabled readonly>
+		  <input name="writerId" type="text" class="form-control" id="writerId" value="${writer}" disabled readonly>
 		</div>
 		<div class="mb-3">
 		  <label for="title" class="form-label">제목</label>
-		  <input name="title" type="text" class="form-control" id="title">
+		  <input name="title" type="text" class="form-control" id="title" value="${title}">
 		</div>
 		<div class="mb-3">
 		  <label for="contents" class="form-label">글 내용</label>
-		  <textarea name="contents" class="form-control" id="contents" rows="6"></textarea>
+		  <textarea name="contents" class="form-control" id="contents" rows="6">${contents}</textarea>
 		</div>
 		<div class="d-flex justify-content-center mb-5">
 		<button id="listbtn" type="button" class="btn btn-outline-secondary m-2">뒤로가기</button>
@@ -45,10 +45,10 @@
 	const listbtn = document.getElementById("listbtn");
 	listbtn.addEventListener("click", getBack);
 	
-	
+	/* 
 	function searchParam(key) {
 		return new URLSearchParams(location.search).get(key);
-	}
+	}  */
 	
 	function selectOne() {
 		const act = searchParam("act");

@@ -87,6 +87,12 @@ public class UserDto {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDto [idx=" + idx + ", userId=" + userId + ", userPass=" + userPass + ", userName=" + userName
+				+ ", userRole=" + userRole + ", userEmail=" + userEmail + ", userAddress=" + userAddress + "]";
+	}
 	
 	
 }

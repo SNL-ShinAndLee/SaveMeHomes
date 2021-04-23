@@ -1,6 +1,3 @@
-
-document.write("<script src='signup.js'></script>");
-
 const headersignoutBtn = document.getElementById("headersignoutBtn");
 
 function signOut(){

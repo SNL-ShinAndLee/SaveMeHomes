@@ -10,4 +10,5 @@ public interface NoticeDao {
 	public boolean UpdateNotice(NoticeDto noticeDto);
 	public boolean DeleteNotice(int idx);
 	public NoticeDto ReadNoticeByIdx(int idx);
+	public int ReadNoticePageCount();
 }

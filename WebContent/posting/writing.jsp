@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <%-- <%@ include file = "header.jsp" %>--%>
 <c:import url = "../header.jsp"/>
 <%
@@ -36,36 +36,8 @@
 
 
 <script>
-	//뒤로가기
-	function getBack() {
-		history.back();
-	}
-	
-	const listbtn = document.getElementById("listbtn");
-	listbtn.addEventListener("click", getBack);
-	
-	// 공지 or 게시판
-	function searchParam(key) {
-		return new URLSearchParams(location.search).get(key);
-	}
-	
-	function selectOne() {
-		const act = searchParam("act");
-		if(act == "noticeWrite")
-		{
-			document.getElementById("selectOne").innerHTML = "공지사항 작성";	
-		}
-		else
-		{
-			document.getElementById("selectOne").innerHTML = "게시물 작성";
-		}
-	}
-	selectOne();
-
-	//글 작성
-	
 	
 </script>
-
+<script src="${root}/js/writing.js"></script>
 <%-- <%@ include file = "footer.jsp" %> --%>
 <c:import url = "../footer.jsp"/>

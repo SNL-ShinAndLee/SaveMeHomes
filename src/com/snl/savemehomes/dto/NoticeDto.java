@@ -22,7 +22,7 @@ public class NoticeDto {
 	public int getIdx() {
 		return idx;
 	}
-	
+
 	public String getNoticeWriter() {
 		return noticeWriter;
 	}
@@ -59,5 +59,14 @@ public class NoticeDto {
 		this.noticeContent = noticeContent;
 	}
 	
+	public String toJSONString() {
+		return String.format("{\"idx\" : %d, \"noticeTitle\" : \"%s\", \"noticeDate\" : \"%s\"}", idx, noticeTitle, noticeDate);
+	}
+	
+	@Override
+	public String toString() {
+		return 	"NoticeDto [idx=" + idx + ", noticeWriter=" + noticeWriter + ", noticeTitle=" + noticeTitle
+				+ ", noticeDate=" + noticeDate + ", noticeContent=" + noticeContent + "]";
+	}
 	
 }

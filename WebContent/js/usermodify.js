@@ -1,14 +1,3 @@
-document.write("<script src='signup.js'></script>");
-
-//회원정보 수정(메인에서 수정페이지로 이동)
-const headeruserinfoBtn = document.getElementById("headeruserinfoBtn");
-
-function userInfo(){
-	const userinfoURL = root + "/user?act=userInfo";
-	location.href = userinfoURL;
-}
-headeruserinfoBtn.addEventListener("click", userInfo);
-
 //회원정보 수정페이지 : 뒤로가기
 const modifyCancelBtn = document.getElementById("modifyCancelBtn");
 function getBack() {

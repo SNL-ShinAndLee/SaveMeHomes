@@ -53,13 +53,8 @@
         <button id="withdrawBtn" type="button" class="btn btn-outline-danger m-3">탈퇴하기</button>
       </div>
     </div>
-      <!-- </form> -->
-<script>
-
-
-
-
-</script>
+    
+<script src="${root}/js/usermodify.js"></script>
 
 <%-- <%@ include file = "footer.jsp" %> --%>
 <c:import url = "../footer.jsp"/>
