@@ -30,14 +30,14 @@ public class NoticeServiceImpl implements NoticeService {
 		UserDao userDao = UserDaoImpl.getInstance();
 		
 		//관리자 확인
-		if(userDao.ReadUserRoleById(noticeDto.getNoticeWriter())
+		if(userDao.readUserRoleById(noticeDto.getNoticeWriter())
 				!= UserRole.ADMINISTRATOR) {
 			throw new NoPermissionException("관리자 권한이 없습니다");
 
 //			return false;
 		}
 		//공지사항 저장
-		if(!noticeDao.CreateNotice(noticeDto))
+		if(!noticeDao.createNotice(noticeDto))
 			return false;
 	
 		return true;
@@ -45,7 +45,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<NoticeDto> readNoticeList(int pageNum) {
-		return NoticeDaoImpl.getInstance().ReadNotice(pageNum);
+		return NoticeDaoImpl.getInstance().readNotice(pageNum);
 	}
 
 	@Override
@@ -54,12 +54,12 @@ public class NoticeServiceImpl implements NoticeService {
 		UserDao userDao = UserDaoImpl.getInstance();
 		System.out.println(noticeDto.toString());
 		//수정 권한 확인
-		if(userDao.ReadUserRoleById(noticeDto.getNoticeWriter())
+		if(userDao.readUserRoleById(noticeDto.getNoticeWriter())
 				!= UserRole.ADMINISTRATOR) {
 			throw new NoPermissionException("관리자 권한이 없습니다");
 		}
 		
-		if(!noticeDao.UpdateNotice(noticeDto)) {
+		if(!noticeDao.updateNotice(noticeDto)) {
 			return false;
 		}
 		return true;
@@ -67,17 +67,17 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public boolean deleteNotice(int idx) {
-		return NoticeDaoImpl.getInstance().DeleteNotice(idx);
+		return NoticeDaoImpl.getInstance().deleteNotice(idx);
 	}
 
 	@Override
 	public NoticeDto readNoticeByIdx(int idx) {
-		return NoticeDaoImpl.getInstance().ReadNoticeByIdx(idx);
+		return NoticeDaoImpl.getInstance().readNoticeByIdx(idx);
 	}
 
 	@Override
 	public int readNoticePageCount() {
-		return NoticeDaoImpl.getInstance().ReadNoticePageCount();
+		return NoticeDaoImpl.getInstance().readNoticePageCount();
 	}
 	
 }

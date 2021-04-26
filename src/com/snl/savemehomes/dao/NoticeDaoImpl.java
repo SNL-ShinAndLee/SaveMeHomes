@@ -23,7 +23,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 	
 	@Override
-	public boolean CreateNotice(NoticeDto noticeDto) {
+	public boolean createNotice(NoticeDto noticeDto) {
 		boolean ret = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -50,7 +50,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public List<NoticeDto> ReadNotice(int pageNum) {
+	public List<NoticeDto> readNotice(int pageNum) {
 		List<NoticeDto> listNoticeDto = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -80,7 +80,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public boolean UpdateNotice(NoticeDto noticeDto) {
+	public boolean updateNotice(NoticeDto noticeDto) {
 		boolean ret = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -107,7 +107,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public boolean DeleteNotice(int idx) {
+	public boolean deleteNotice(int idx) {
 		boolean ret = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -131,7 +131,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public NoticeDto ReadNoticeByIdx(int idx) {
+	public NoticeDto readNoticeByIdx(int idx) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		NoticeDto noticeDto = null;
@@ -164,7 +164,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	}
 
 	@Override
-	public int ReadNoticePageCount() {
+	public int readNoticePageCount() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int pageCount = 1;

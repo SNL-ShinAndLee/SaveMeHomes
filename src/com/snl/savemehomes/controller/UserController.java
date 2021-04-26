@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import com.snl.savemehomes.dto.UserDto;
 import com.snl.savemehomes.service.UserService;
 import com.snl.savemehomes.service.UserServiceImpl;
+import com.snl.savemehomes.util.JSONUtil;
 
 import sun.misc.IOUtils;
 
@@ -164,7 +165,7 @@ public class UserController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		String requestPOSTData = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		Map<String, String> map = JSONparser(requestPOSTData);
+		Map<String, String> map = JSONUtil.parse(requestPOSTData);
 		
 		String msg;
 		String signInUserId = ((UserDto)session.getAttribute("signInUser")).getUserId(); 
@@ -210,7 +211,7 @@ public class UserController extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String requestPOSTData = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		Map<String, String> map = JSONparser(requestPOSTData);
+		Map<String, String> map = JSONUtil.parse(requestPOSTData);
 		
 		String msg;
 		String signInUserId = ((UserDto)session.getAttribute("signInUser")).getUserId(); 
@@ -227,17 +228,5 @@ public class UserController extends HttpServlet {
 		session.invalidate();
 		response.getWriter().println(msg);
 	}
-	
-	protected Map<String, String> JSONparser(String JSONString){
-		Map<String, String> map = new HashMap<String,String>();
-		String json = JSONString.substring(2, JSONString.length()-2);		
-		String[] parts = json.replaceAll("^\\{|\\}$","").split("\"?(:|,)(?![^\\{]*\\})\"?");
-		for (int i = 0; i < parts.length -1; i+=2)
-			map.put(parts[i], parts[i+1]);
-		
-		return map;
-	}
-	
-	
 	
 }

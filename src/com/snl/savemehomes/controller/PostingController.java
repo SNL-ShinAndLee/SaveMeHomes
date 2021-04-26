@@ -16,35 +16,19 @@ import com.snl.savemehomes.dto.NoticeDto;
 import com.snl.savemehomes.dto.UserDto;
 import com.snl.savemehomes.service.NoticeServiceImpl;
 
-/**
- * Servlet implementation class PostingController
- */
 @WebServlet(name = "posting", urlPatterns = { "/posting" })
 public class PostingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public PostingController() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		process(request, response);
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		doGet(request, response);
 	}
@@ -147,7 +131,6 @@ public class PostingController extends HttpServlet {
 		}
 		System.out.println("작성성공");
 		response.sendRedirect(root+"/posting/notice.jsp");
-		//결과를 어떻게 받을 지
 	}
 
 

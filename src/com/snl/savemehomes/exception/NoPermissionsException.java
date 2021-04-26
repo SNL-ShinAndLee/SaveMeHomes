@@ -1,4 +1,4 @@
-package com.snl.savehomes.exception;
+package com.snl.savemehomes.exception;
 
 public class NoPermissionsException extends Exception {
 	NoPermissionsException() {

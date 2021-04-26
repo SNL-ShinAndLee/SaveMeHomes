@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public boolean CreateUser(UserDto userDto) {
+	public boolean createUser(UserDto userDto) {
 		boolean ret = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public UserDto ReadUser(String userId, String userPass) {
+	public UserDto readUser(String userId, String userPass) {
 		UserDto userDto = null;
 		
 		Connection conn = null;
@@ -82,9 +82,9 @@ public class UserDaoImpl implements UserDao {
 		
 		return userDto;
 	}
-
+	
 	@Override
-	public boolean UpdateUser(UserDto userDto) {
+	public boolean updateUser(UserDto userDto) {
 		boolean ret = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -113,7 +113,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean DeleteUser(String userId, String userPass) {
+	public boolean deleteUser(String userId, String userPass) {
 		boolean ret = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -138,7 +138,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean ReadUserById(String userId) {
+	public boolean readUserById(String userId) {
 		Integer idCheck = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -167,7 +167,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserRole ReadUserRoleById(String userId) {
+	public UserRole readUserRoleById(String userId) {
 		UserRole userRole = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;

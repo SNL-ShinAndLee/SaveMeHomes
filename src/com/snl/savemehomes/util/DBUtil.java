@@ -10,6 +10,21 @@ public class DBUtil {
 	private static String ID = Constants.getDBID();
 	private static String PASSWORD = Constants.getDBPASSWORD();
 
+	/*private static DBUtil instance;
+	
+	private DBUtil(){
+		try {
+			Class.forName(DRIVER);
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+	public DBUtil getInstance() {
+		if(instance == null) instance = new DBUtil();
+		return instance;
+	}*/
 	static {
 		try {
 			Class.forName(DRIVER);
