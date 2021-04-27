@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.snl.savemehomes.common.UserRole;
+import com.snl.savemehomes.dto.BoardDto;
 import com.snl.savemehomes.dto.NoticeDto;
 import com.snl.savemehomes.dto.UserDto;
+import com.snl.savemehomes.exception.NoPermissionsException;
+import com.snl.savemehomes.service.BoardServiceImpl;
 import com.snl.savemehomes.service.NoticeServiceImpl;
 
 @WebServlet(name = "posting", urlPatterns = { "/posting" })
@@ -74,31 +77,37 @@ public class PostingController extends HttpServlet {
 		}
 		else if("boardSave".equals(act)) {
 			// CREATE : 게시글 저장
-			response.sendRedirect(root+"/posting/board.jsp");
+			boardSave(request, response);
 		}
 		else if("board".equals(act)) {
 			// READ : 게시글 읽기
-			String url = "/posting/reading.jsp";
-			request.getRequestDispatcher(url).forward(request, response);
+//			String url = "/posting/reading.jsp";
+//			request.getRequestDispatcher(url).forward(request, response);
+			boardRead(request, response);
+		}
+		else if("boardList".equals(act)) {
+			// READ : 공지사항 목록 pagination 
+			boardList(request, response);
 		}
 		else if("boardModify".equals(act)) {
 			// 페이지이동 : 게시글 수정 페이지 이동
-			String url = "/posting/modify.jsp";
-			request.getRequestDispatcher(url).forward(request, response);
+//			String url = "/posting/modify.jsp";
+//			request.getRequestDispatcher(url).forward(request, response);
+			boardModify(request, response);
 		}
 		else if("boardModifiedSave".equals(act)) {
 			// UPDATE : 게시글 수정 후 저장
-			response.sendRedirect(root+"/posting/board.jsp");
+//			response.sendRedirect(root+"/posting/board.jsp");
+			boardModifiedSave(request, response);
 		}
 		else if("boardDelete".equals(act)) {
 			// DELETE : 게시글 삭제
+			boardDelete(request, response);
 		}
 		else {
 			response.sendRedirect(root);
 		}
 	}
-
-
 
 	private void noticeSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -115,21 +124,20 @@ public class PostingController extends HttpServlet {
 		
 		try {
 			if(!NoticeServiceImpl.getInstance().writeNotice(noticeDto)) {
-				System.out.println("작성실패");
 				request.setAttribute("msg", "공지사항 작성에 실패했습니다.");
 				path = "/error/error500.jsp";
 				request.getRequestDispatcher(path).forward(request, response);
 				return;
 			}
-		} catch (NoPermissionException e) {
-			System.out.println("권한없음");
+		} catch (NoPermissionsException e) {
 			request.setAttribute("msg", "공지사항 작성 권한이 없습니다.");
 			path = "/error/error500.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("작성성공");
+		int pageCount = NoticeServiceImpl.getInstance().readNoticePageCount();
+		session.setAttribute("noticePageCount", pageCount);
 		response.sendRedirect(root+"/posting/notice.jsp");
 	}
 
@@ -215,7 +223,7 @@ public class PostingController extends HttpServlet {
 				request.getRequestDispatcher(path).forward(request, response);
 				return;
 			}
-		} catch (NoPermissionException e) {
+		} catch (NoPermissionsException e) {
 			request.setAttribute("msg", "공지사항 수정 권한이 없습니다.");
 			path = "/error/error500.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
@@ -245,7 +253,148 @@ public class PostingController extends HttpServlet {
 			request.getRequestDispatcher(path).forward(request, response);
 			return;
 		}
+		int pageCount = NoticeServiceImpl.getInstance().readNoticePageCount();
+		session.setAttribute("noticePageCount", pageCount);
 		response.sendRedirect(root+"/posting/notice.jsp");
 					
+	}
+	
+	private void boardSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String root = request.getContextPath();
+		String path = root;
+		String boardWriter = ((UserDto)session.getAttribute("signInUser")).getUserId();
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		
+		BoardDto boardDto = new BoardDto();
+		boardDto.setBoardWriter(boardWriter);
+		boardDto.setBoardTitle(title);
+		boardDto.setBoardContent(contents);
+		
+		if(!BoardServiceImpl.getInstance().writeBoard(boardDto)) {
+			System.out.println("작성실패");
+			request.setAttribute("msg", "게시글 작성에 실패했습니다.");
+			path = "/error/error500.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
+			return;
+		}
+		int pageCount = BoardServiceImpl.getInstance().readBoardPageCount();
+		session.setAttribute("boardPageCount", pageCount);
+		response.sendRedirect(root+"/posting/board.jsp");
+	}
+	
+	private void boardList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		int page = Integer.parseInt(request.getParameter("page"));
+		List<BoardDto> boardList = BoardServiceImpl.getInstance().readBoardList(page);
+		int pageCount = BoardServiceImpl.getInstance().readBoardPageCount();
+		HttpSession session = request.getSession();
+		session.setAttribute("boardPageCount", pageCount);
+		StringBuilder SB = new StringBuilder();
+		SB.append("[");
+		for(BoardDto boardDto : boardList) {
+			SB.append(boardDto.toJSONString()).append(",");
+		}
+		SB.deleteCharAt(SB.lastIndexOf(","));
+		SB.append("]");
+		response.getWriter().print(SB.toString());
+	}
+	
+	private void boardRead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String root = request.getContextPath();
+		String path = root;
+		
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		BoardDto boardDto = BoardServiceImpl.getInstance().readBoardByIdx(idx);
+		if(boardDto==null) {
+			request.setAttribute("msg", "[게시판]<br>게시글을 읽을 수 없습니다.");
+			path = "/error/error500.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
+			return;
+		}
+		request.setAttribute("title", boardDto.getBoardTitle());
+		request.setAttribute("writer", boardDto.getBoardWriter());
+		request.setAttribute("postingdate", boardDto.getBoardDate());
+		request.setAttribute("contents", boardDto.getBoardContent());
+		path = "/posting/reading.jsp";
+		request.getRequestDispatcher(path).forward(request, response);
+	}
+	
+	private void boardModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String root = request.getContextPath();
+		String path = root;
+		
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		BoardDto boardDto = BoardServiceImpl.getInstance().readBoardByIdx(idx);
+		if(boardDto==null) {
+			request.setAttribute("msg", "[게시글 수정]<br>게시글을 읽을 수 없습니다.");
+			path = "/error/error500.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
+			return;
+		}
+		request.setAttribute("title", boardDto.getBoardTitle());
+		request.setAttribute("writer", boardDto.getBoardWriter());
+		request.setAttribute("contents", boardDto.getBoardContent());
+		path = "/posting/modify.jsp";
+		request.getRequestDispatcher(path).forward(request, response);
+	}
+	
+	private void boardModifiedSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String root = request.getContextPath();
+		String path = root;
+		String boardWriter = ((UserDto)session.getAttribute("signInUser")).getUserId();
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		
+		BoardDto boardDto = new BoardDto();
+		boardDto.setIdx(idx);
+		boardDto.setBoardWriter(boardWriter);
+		boardDto.setBoardTitle(title);
+		boardDto.setBoardContent(contents);
+		
+		try {
+			if(!BoardServiceImpl.getInstance().modifyBoard(boardDto)) {
+				request.setAttribute("msg", "게시글 수정에 실패했습니다.");
+				path = "/error/error500.jsp";
+				request.getRequestDispatcher(path).forward(request, response);
+				return;
+			}
+		} catch (NoPermissionsException e) {
+			request.setAttribute("msg", "게시글 수정 권한이 없습니다.");
+			path = "/error/error500.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
+			e.printStackTrace();
+			return;
+		}
+		response.sendRedirect(root+"/posting/board.jsp");
+	}
+	
+	private void boardDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		HttpSession session = request.getSession();
+		String root = request.getContextPath();
+		String path = root;
+		
+		try {
+			if(!BoardServiceImpl.getInstance().deleteBoard(Integer.parseInt(request.getParameter("idx")), ((UserDto)session.getAttribute("signInUser")))) {
+				request.setAttribute("msg", "게시글 삭제에 실패했습니다.");
+				path = "/error/error500.jsp";
+				request.getRequestDispatcher(path).forward(request, response);
+				return;
+			}
+		} catch (NoPermissionsException e) {
+			request.setAttribute("msg", "게시글 삭제 권한이 없습니다.");
+			path = "/error/error500.jsp";
+			request.getRequestDispatcher(path).forward(request, response);
+			e.printStackTrace();
+			return;
+		} 
+		int pageCount = BoardServiceImpl.getInstance().readBoardPageCount();
+		session.setAttribute("boardPageCount", pageCount);
+		response.sendRedirect(root+"/posting/board.jsp");
 	}
 }

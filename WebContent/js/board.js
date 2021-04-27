@@ -1,8 +1,8 @@
-const pagebtnlist = document.querySelectorAll("#noticePagination > li");
+const pagebtnlist = document.querySelectorAll("#boardPagination > li");
 
 
 function setNumberPagebtn(page) {
-	const pageCount = parseInt(document.getElementById("noticePageCount").innerText);
+	const pageCount = parseInt(document.getElementById("boardPageCount").innerText);
 	
 	if(pageCount < 5 || page <= 3){
 	    for(let i = 1 ;i <= 5; ++i){
@@ -25,35 +25,35 @@ function setNumberPagebtn(page) {
 	        pagebtnlist[i].querySelector("a").innerHTML = j;
 	    }
 	}
-	
 }
 
 setNumberPagebtn(1);
 
 
-function noticeListByPageNum(e) {
-	const pageCount = parseInt(document.getElementById("noticePageCount").innerText);
+function boardListByPageNum(e) {
+	const pageCount = parseInt(document.getElementById("boardPageCount").innerText);
 	const page = e.currentTarget.innerText;
-	const url = root + "/posting?act=noticeList&page=" + page;
+	const url = root + "/posting?act=boardList&page=" + page;
 	fetch(url).then((response)=>{
 		return response.text();
 	}).then((text)=>{
-		const noticeListJSON = JSON.parse(text);
-		const noticeListBody = document.querySelector("#noticeListBody");
-		noticeListBody.innerHTML ="";
-		for(let i=0; i<noticeListJSON.length; ++i) {
+		const boardListJSON = JSON.parse(text);
+		const boardListBody = document.querySelector("#boardListBody");
+		boardListBody.innerHTML ="";
+		for(let i=0; i<boardListJSON.length; ++i) {
 			
-			noticeListBody.innerHTML += `<tr class="notice">
-									     	<th scope="row">` + noticeListJSON[i].idx + `</th>
-									     	<td>`+ noticeListJSON[i].noticeTitle + `</td>
-									     	<td>`+ noticeListJSON[i].noticeDate + `</td>
+			boardListBody.innerHTML += `<tr class="board">
+									     	<th scope="row" >` + boardListJSON[i].idx + `</th>
+									     	<td>`+ boardListJSON[i].boardTitle + `</td>
+									     	<td>`+ boardListJSON[i].boardWriter + `</td>
+									     	<td>`+ boardListJSON[i].boardDate + `</td>
 									     </tr>`;
 		}
 		
-		const noticetr = document.querySelectorAll(".notice");
-		console.log(noticetr.length);
-		for (let i=0; i<noticetr.length; ++i) {
-			noticetr[i].addEventListener("click", getNotice);
+		const boardtr = document.querySelectorAll(".board");
+		console.log(boardtr.length);
+		for (let i=0; i<boardtr.length; ++i) {
+			boardtr[i].addEventListener("click", getBoard);
 		}
 		
 		setNumberPagebtn(page);
@@ -91,14 +91,14 @@ function noticeListByPageNum(e) {
 	
 }
 
-noticeListByPageNum({
+boardListByPageNum({
 	currentTarget:{
 		innerText:1
 	}
 });
 
 for (let i=1; i<6; i++) {
-	pagebtnlist[i].addEventListener("click", noticeListByPageNum);
+	pagebtnlist[i].addEventListener("click", boardListByPageNum);
 }
 
 function movePageNumLeft() {
@@ -110,7 +110,7 @@ function movePageNumLeft() {
 		}
 	}
 	
-	noticeListByPageNum({
+	boardListByPageNum({
 		currentTarget:{
 			innerText:nowPage-1
 		}
@@ -126,7 +126,7 @@ function movePageNumRight() {
 		}
 	}
 	
-	noticeListByPageNum({
+	boardListByPageNum({
 		currentTarget:{
 			innerText:nowPage+1
 		}
@@ -136,17 +136,18 @@ function movePageNumRight() {
 pagebtnlist[0].addEventListener("click", movePageNumLeft);
 pagebtnlist[6].addEventListener("click", movePageNumRight);
 
-function getNotice(e) {
+function getBoard(e) {
 	const idx = e.currentTarget.children[0].innerText;
-	const url = root + "/posting?act=notice&idx=" + idx;
+	const url = root + "/posting?act=board&idx=" + idx;
 	location.href = url;
 }
 
 //글 작성 페이지 이동
 function writing() {
-	const url = root + "/posting?act=noticeWrite";
+	const url = root + "/posting?act=boardWrite";
 	location.href = url;
 }
 
 const writebtn = document.getElementById("writebtn");
 writebtn.addEventListener("click", writing);
+

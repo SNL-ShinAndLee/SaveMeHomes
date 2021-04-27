@@ -137,7 +137,7 @@ public class CityDaoImpl implements CityDao {
 		PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 		String query = "SELECT * FROM City "
-					+ "WHERE FLOOR(cityCode/ 1000000) = ?/1000000 "
+					+ "WHERE FLOOR(cityCode/ 100000) = ?/100000 "
 					+ "AND cityDong != 'null';";
 	    try {
 	    	conn = DBUtil.getConnect();

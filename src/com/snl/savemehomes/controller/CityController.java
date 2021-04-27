@@ -105,7 +105,6 @@ public class CityController extends HttpServlet {
 		SB.append("[");
 		for(CityDto cityDto : dongList) {
 			SB.append(cityDto.toJSONString()).append(",");
-			System.out.println(cityDto.getCityGugun());
 		}
 		SB.deleteCharAt(SB.lastIndexOf(","));
 		SB.append("]");

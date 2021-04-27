@@ -7,6 +7,10 @@ public class BoardDto {
 	private String boardDate;
 	private String boardContent;
 	
+	public BoardDto() {
+		super();
+	}
+
 	public BoardDto(String boardWriter, String boardTitle, String boardDate, String boardContent) {
 		super();
 		this.boardWriter = boardWriter;
@@ -35,6 +39,10 @@ public class BoardDto {
 		return boardContent;
 	}
 
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
 	public void setBoardWriter(String boardWriter) {
 		this.boardWriter = boardWriter;
 	}
@@ -51,5 +59,14 @@ public class BoardDto {
 		this.boardContent = boardContent;
 	}
 	
+	public String toJSONString() {
+		return String.format("{\"idx\" : %d, \"boardTitle\" : \"%s\", \"boardWriter\" : \"%s\", \"boardDate\" : \"%s\"}", idx, boardTitle, boardWriter, boardDate);
+	}
+
+	@Override
+	public String toString() {
+		return "BoardDto [idx=" + idx + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle + ", boardDate="
+				+ boardDate + ", boardContent=" + boardContent + "]";
+	}
 	
 }

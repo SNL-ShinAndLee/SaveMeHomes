@@ -16,9 +16,9 @@
 <table class="table table-striped table-hover mt-5">
   <thead>
     <tr>
-      <th scope="col">글번호</th>
-      <th scope="col">제목</th>
-      <th scope="col">작성일</th>
+      <th scope="col" class="w-25">글번호</th>
+      <th scope="col" class="w-50">제목</th>
+      <th scope="col" class="w-25">작성일</th>
     </tr>
   </thead>
   <tbody id="noticeListBody">
