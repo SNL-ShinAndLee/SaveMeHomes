@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.snl.savemehomes.constants.Constants"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -35,5 +35,17 @@
     </form>
   </div>
   <!-- drop down end -->
+  <div class="container">
+  <div class="row my-3">
+      <div id="map" class="col-12 bg-warning" style="height:50vh;">
+         
+         지도
+         
+         
+         
+      </div>
+    </div>
+   </div>
   
-  
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=Constants.getMapAPIKey()%>&libraries=services,clusterer,drawing"></script>
+<script src="${pageContext.request.contextPath}/js/mapsearch.js"></script>

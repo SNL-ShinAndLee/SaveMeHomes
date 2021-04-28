@@ -20,7 +20,7 @@ for (let i=0; i<cardBtn.length; ++i)
 }
 
 /*카카오맵 불러오기*/
- /* 
+ 
 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 var options = { //지도를 생성할 때 필요한 기본 옵션
   center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
@@ -28,7 +28,7 @@ var options = { //지도를 생성할 때 필요한 기본 옵션
 };
 
 var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
- */
+
 
 /*카카오맵 서비스*/
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -47,11 +47,10 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var ps = new kakao.maps.services.Places(); 
 
 // 키워드로 장소를 검색합니다
-ps.keywordSearch('2641000000', placesSearchCB); 
-ps.keywordSearch('개금동', placesSearchCB); 
-
+//ps.keywordSearch('2641000000', placesSearchCB); 
+//ps.keywordSearch('개금동', placesSearchCB); 
 //ps.keywordSearch('혜화동 6-26', placesSearchCB); 
-
+ps.keywordSearch('누상동 166-3', placesSearchCB); 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {

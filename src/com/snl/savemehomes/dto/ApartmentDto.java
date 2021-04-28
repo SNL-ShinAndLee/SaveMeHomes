@@ -13,6 +13,10 @@ public class ApartmentDto {
 	private long cityCode;
 	private int floor;
 	
+	public ApartmentDto() {
+		super();
+	}
+
 	public ApartmentDto(String apartName, int dealAmount, int buildYear, double landArea, String dong, String dealDate,
 			double dedicatedArea, String lotNum, long cityCode, int floor) {
 		super();

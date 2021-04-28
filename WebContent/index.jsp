@@ -10,15 +10,7 @@
   <c:import url = "cityDropdown.jsp"/>
   
   <div class="container my-3">
-    <div class="row my-3">
-      <div id="map" class="col-12 bg-warning" style="height:40vh;">
-         
-         지도
-         
-         
-         
-      </div>
-    </div>
+    
     <div class="row">
       <div class="col-4 bg-warning">오늘의 뉴스</div>
       <div class="col-4 bg-warning">선별진료소</div>
@@ -27,8 +19,8 @@
   </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=Constants.getMapAPIKey()%>"></script>
-<script src="js/map.js"></script>
+<%-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=Constants.getMapAPIKey()%>"></script>
+<script src="js/map.js"></script> --%>
 
 <%-- <%@ include file = "footer.jsp" %> --%>
 <c:import url = "footer.jsp"/>
