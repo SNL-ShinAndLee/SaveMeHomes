@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.snl.savemehomes.dto.ApartmentDto;
 import com.snl.savemehomes.dto.CityDto;
 import com.snl.savemehomes.dto.NoticeDto;
+import com.snl.savemehomes.service.ApartmentService;
+import com.snl.savemehomes.service.ApartmentServiceImpl;
 import com.snl.savemehomes.service.CityService;
 import com.snl.savemehomes.service.CityServiceImpl;
 
@@ -21,16 +24,21 @@ public class CityController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private final CityService cityService = CityServiceImpl.getInstance();
+	private final ApartmentService apartmentService = ApartmentServiceImpl.getInstance();
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
+		try {
+			process(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		doGet(request, response);
 	}
 	
-	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String root = request.getContextPath();
 		String act = request.getParameter("act");
@@ -47,21 +55,14 @@ public class CityController extends HttpServlet {
 		else if("citysearch".equals(act)) {
 			citySearch(request, response);
 		}
+		else if("homesinfo".equals(act)) {
+			homesInfo(request, response);
+		}
 		else {
 			response.sendRedirect(root);
 		}
 	}
 	
-	
-	private void citySearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		String path = "/search.jsp";
-		//매물 리스트를 보내줘야함..
-		RequestDispatcher disp = request.getRequestDispatcher(path);
-		disp.forward(request, response);
-		
-	}
 	private void sidoList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
         List<CityDto> sidoList = cityService.getSidoList();
@@ -77,6 +78,7 @@ public class CityController extends HttpServlet {
 		SB.append("]");
 		response.getWriter().print(SB.toString());
 	}
+	
 	private void gugunList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long cityCode = Long.parseLong(request.getParameter("citycode"));
 		
@@ -94,6 +96,7 @@ public class CityController extends HttpServlet {
 		response.getWriter().print(SB.toString());
 
 	}
+	
 	private void dongList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long cityCode = Long.parseLong(request.getParameter("citycode"));
 		
@@ -105,6 +108,31 @@ public class CityController extends HttpServlet {
 		SB.append("[");
 		for(CityDto cityDto : dongList) {
 			SB.append(cityDto.toJSONString()).append(",");
+		}
+		SB.deleteCharAt(SB.lastIndexOf(","));
+		SB.append("]");
+		response.getWriter().print(SB.toString());
+		
+	}
+	
+	private void citySearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = "/search.jsp";
+		//매물 리스트를 보내줘야함..
+		
+		request.getRequestDispatcher(path).forward(request, response);
+	}
+	
+	private void homesInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		long dongCode = Long.parseLong(request.getParameter("dongcode"));
+		
+		List<ApartmentDto> homesInfoList = apartmentService.readHomesInfoListByDong(dongCode);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("charset=utf-8");
+        
+        StringBuilder SB = new StringBuilder();
+		SB.append("[");
+		for(ApartmentDto apartmentDto : homesInfoList) {
+			SB.append(apartmentDto.toJSONString()).append(",");
 		}
 		SB.deleteCharAt(SB.lastIndexOf(","));
 		SB.append("]");

@@ -116,7 +116,11 @@ public class ApartmentDto {
 		this.floor = floor;
 	}
 	
-	
-	
-	
+	public String toJSONString() {
+		return String.format("{\"apartName\" : \"%s\", \"dealAmount\" : %d, \"buildYear\" : %d, "
+							+ "\"landArea\" : %f, \"dong\" : \"%s\", \"dealDate\" : \"%s\", "
+							+ "\"dedicatedArea\" : %f, \"lotNum\" : \"%s\", \"cityCode\" : %d, \"floor\" : %d}"
+								, apartName, dealAmount, buildYear, landArea, dong, dealDate, dedicatedArea,
+								lotNum, cityCode, floor);
+	}
 }

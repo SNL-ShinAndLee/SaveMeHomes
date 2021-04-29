@@ -28,7 +28,7 @@ function getSidoList(){
   })
   
 }
-sidoBtn.addEventListener("click", getSidoList);
+getSidoList();
 
 function sidoSelect(e){
 	const selectedSido = e.currentTarget;
@@ -79,20 +79,16 @@ function gugunSelect(e){
 		const dongSelectList = dongListBody.querySelectorAll("li");
 		for(let i = 0 ; i < dongSelectList.length; ++i){
 			dongSelectList[i].addEventListener("click", dongSelect);
-		} 
+		}
 	})
 }
 function dongSelect(e){
 	const selectedDong = e.currentTarget;
 	dongBtn.innerHTML = selectedDong.innerHTML; 
-	console.log(selectedDong);
 	
-	const dongCode = selectedGugun.querySelector("span").innerText;
+	const dongCode = selectedDong.querySelector("span").innerText;
 	const url = root + "/city?act=citysearch&citycode=" + dongCode;
+	location.href = url;
 	
-	fetch(url).then((response)=>{
-		return response.text();
-	}).then((text)=>{
-		//
-	})
+
 }

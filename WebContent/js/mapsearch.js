@@ -1,24 +1,3 @@
-/*아파트 상세보기*/
-function detailView(e){
-	var cur = e.currentTarget;
-	var par = cur.parentNode;
-	
-	document.getElementById("detailViewModalLabel").innerHTML = par.querySelector(".card-title").innerText;
-	
-	var children = par.querySelectorAll(".card-text");
-	var modalChild = document.querySelector("#detailView");
-	modalChild.innerHTML = "";
-	for(let i=0; i < children.length ; ++i){
-		modalChild.innerHTML += ("<p>" + children[i].innerText + "</p>");
-	}
-	
-}
-const cardBtn = document.getElementsByClassName("cardBtn");
-for (let i=0; i<cardBtn.length; ++i)
-{
-	cardBtn[i].addEventListener("click", detailView);
-}
-
 /*카카오맵 불러오기*/
  
 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -43,14 +22,12 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 장소 검색 객체를 생성합니다
+/*// 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places(); 
 
 // 키워드로 장소를 검색합니다
-//ps.keywordSearch('2641000000', placesSearchCB); 
-//ps.keywordSearch('개금동', placesSearchCB); 
-//ps.keywordSearch('혜화동 6-26', placesSearchCB); 
-ps.keywordSearch('누상동 166-3', placesSearchCB); 
+
+//ps.keywordSearch('누상동 166-3', placesSearchCB);
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
@@ -79,9 +56,38 @@ function displayMarker(place) {
     });
 
     // 마커에 클릭이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'click', function() {
+    kakao.maps.event.addListener(marker, 'click', function(e) {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+    	console.log(e);
         infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
         infowindow.open(map, marker);
     });
-}
+}*/
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+/*geocoder.addressSearch('자양동 610-8', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">ㅇㅇㅇ</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    */

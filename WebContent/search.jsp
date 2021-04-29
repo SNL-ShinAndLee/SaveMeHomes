@@ -7,38 +7,11 @@
 
 <!-- google map -->
 <div class="">
-<c:import url = "cityDropdown.jsp"/>
+<c:import url = "cityMap.jsp"/>
  
-<div class="container my-3">
-  <div class="row">
+<div id="homeInfoBody" class="container my-3 overflow-scroll" style="height: 45vh;">
   
-    <div class="col-4">
-      <div class="card text-center">
-        <div class="card-body">
-          <h5 id="apartName" class="card-title">아파트명</h5>
-          <p id="dealAmount" class="card-text">가격</p>
-          <p id="buildYear" class="card-text" style="display:none;">건축년도</p>
-          <p id="landArea" class="card-text" style="display:none;">대지면적</p>
-          <p id="dong" class="card-text" style="display:none;">??동</p>
-          <p id="dealDate" class="card-text">거래일</p>
-          <p id="dedicatedArea" class="card-text">전용면적</p>
-          <p id="lotNum" class="card-text" style="display:none;">지번</p>
-          <p id="cityCode" class="card-text" style="display:none;">지역코드</p>
-          <p id="floor" class="card-text" style="display:none;">층</p>
-          <!-- 
-                          동, 지번, 층 순서대로
-                          지역코드 숨기기            
-           -->
-          <button type="button" class="btn btn-primary cardBtn" data-bs-toggle="modal" data-bs-target="#detailViewModal">
-                            상세보기
-          </button>
-        </div>
-      </div>
-    </div>
     
-    <!-- card 추가 -->
-    
-  </div>
 </div>
 <!-- container end -->
 
@@ -55,7 +28,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -69,7 +41,7 @@
 
   
 <%-- <%@ include file = "footer.jsp" %> --%>
-<script src="${pageContext.request.contextPath}/js/readapartapi.js">
+<script src="${pageContext.request.contextPath}/js/homesinfo.js">
 <!--
 
 //-->

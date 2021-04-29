@@ -9,4 +9,5 @@ public interface CityDao {
 	public List<CityDto> readSido();
 	public List<CityDto> readGugun(long sidoCode);
 	public List<CityDto> readDong(long gugunCode);
+	public String readDongNameByCityCode(long dongCode);
 }

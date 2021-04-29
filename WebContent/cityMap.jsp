@@ -49,3 +49,4 @@
   
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=Constants.getMapAPIKey()%>&libraries=services,clusterer,drawing"></script>
 <script src="${pageContext.request.contextPath}/js/mapsearch.js"></script>
+<script src="${pageContext.request.contextPath}/js/city.js"></script>

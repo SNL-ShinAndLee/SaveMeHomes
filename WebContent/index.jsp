@@ -7,7 +7,7 @@
 
 <!-- google map -->
 <div class="">
-  <c:import url = "cityDropdown.jsp"/>
+  <c:import url = "cityMap.jsp"/>
   
   <div class="container my-3">
     

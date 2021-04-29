@@ -34,7 +34,7 @@ public class ApartmentDaoImpl implements ApartmentDao {
 	    		+ "dedicatedArea, lotNum, cityCode, floor) VALUES ";
 	    querySB.append(query);
 	    for(ApartmentDto apDto : apartmentDtoList) {
-	    	querySB.append(String.format("(%s, %d, %d, %f, %s, %s, %f, %s, %d, %d),",
+	    	querySB.append(String.format("('%s', %d, %d, %f, '%s', '%s', %f, '%s', %d, %d), ",
 	    			apDto.getApartName(), apDto.getDealAmount(), apDto.getBuildYear(), apDto.getLandArea(),
 	    			apDto.getDong(), apDto.getDealDate(), apDto.getDedicatedArea(), apDto.getLotNum(),
 	    			apDto.getCityCode(), apDto.getFloor()));
@@ -43,7 +43,7 @@ public class ApartmentDaoImpl implements ApartmentDao {
 		querySB.append(";");
 	    try {
 	    	conn = DBUtil.getConnect();
-			pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(querySB.toString());
 			pstmt.executeUpdate();
 			ret = true;
 			
@@ -61,7 +61,7 @@ public class ApartmentDaoImpl implements ApartmentDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 	    ResultSet rs = null;
-		String query = "SELECT * FROM City WHERE cityCode=" + gugunCode + "AND dong=" + dong;
+		String query = "SELECT * FROM Apartment WHERE cityCode = " + gugunCode + " AND dong = '" + dong + "';";
 	    try {
 	    	conn = DBUtil.getConnect();
 			pstmt = conn.prepareStatement(query);
@@ -70,6 +70,16 @@ public class ApartmentDaoImpl implements ApartmentDao {
 			while(rs.next()) {
 				ApartmentDto apartmentDto = new ApartmentDto();
 				apartmentDto.setApartName(rs.getString(2));
+				apartmentDto.setDealAmount(rs.getInt(3));
+				apartmentDto.setBuildYear(rs.getInt(4));
+				apartmentDto.setLandArea(rs.getDouble(5));
+				apartmentDto.setDong(rs.getString(6));
+				apartmentDto.setDealDate(rs.getString(7));
+				apartmentDto.setDedicatedArea(rs.getDouble(8));
+				apartmentDto.setLotNum(rs.getString(9));
+				apartmentDto.setCityCode(rs.getLong(10));
+				apartmentDto.setFloor(rs.getInt(11));
+				apartmentList.add(apartmentDto);
 			}
 			
 		} catch (SQLException e) {
@@ -77,7 +87,6 @@ public class ApartmentDaoImpl implements ApartmentDao {
 		} finally {
 			DBUtil.close(pstmt, conn);
 		}
-	
 		
 		return apartmentList;
 	}
