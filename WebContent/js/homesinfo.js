@@ -47,12 +47,12 @@ window.onload = function() {
 			      <div class="card text-center">
 			        <div class="card-body">
 			          <h5 id="apartName" class="card-title">` + homesinfoListJSON[i].apartName + `</h5>
-			          <p id="dealAmount" class="card-text"> 가격 : ` + homesinfoListJSON[i].dealAmount + `</p>
+			          <p id="dealAmount" class="card-text"> 가격 : ` + homesinfoListJSON[i].dealAmount.toLocaleString('ko-KR') + `&nbsp;(만원)</p>
 			          <p id="buildYear" class="card-text" style="display:none;"> 건축년도 : ` + homesinfoListJSON[i].buildYear + `</p>
 			          <p id="dealDate" class="card-text"> 거래일 : ` + homesinfoListJSON[i].dealDate + `</p>
-			          <p id="dedicatedArea" class="card-text"> 전용면적 : ` + homesinfoListJSON[i].dedicatedArea + `</p>
-			          <p id="landArea" class="card-text" style="display:none;"> 대지면적 : ` + homesinfoListJSON[i].landArea + `</p>
-			          <p id="dong" class="card-text" style="display:none;">` + homesinfoListJSON[i].dong + `</p>
+			          <p id="dedicatedArea" class="card-text"> 전용면적 : ` + homesinfoListJSON[i].dedicatedArea + `&nbsp;(m²)</p>
+			          <p id="landArea" class="card-text" style="display:none;"> 대지면적 : ` + homesinfoListJSON[i].landArea + `&nbsp;(m²)</p>
+			          <p id="dong" class="card-text" style="display:none;"> 주소 : ` + homesinfoListJSON[i].dong + `</p>
 			          <p id="lotNum" class="card-text" style="display:none;">` + homesinfoListJSON[i].lotNum + `</p>
 			          <p id="floor" class="card-text" style="display:none;">` + homesinfoListJSON[i].floor + `층</p>
 			          <p id="cityCode" class="card-text" style="display:none;"> 지역코드 : ` + homesinfoListJSON[i].cityCode + `</p>
@@ -86,8 +86,9 @@ function detailView(e){
 	var children = par.querySelectorAll(".card-text");
 	var modalChild = document.querySelector("#detailView");
 	modalChild.innerHTML = "";
-	for(let i=0; i < children.length ; ++i){
-		modalChild.innerHTML += ("<p>" + children[i].innerText + "</p>");
+	for(let i=0; i < children.length-1 ; ++i){
+		if(i<5) modalChild.innerHTML += ("<p>" + children[i].innerText + "</p>");
+		else modalChild.innerHTML += ("<span>" + children[i].innerText + "&nbsp;</span>");
 	}
 }
 
