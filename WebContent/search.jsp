@@ -41,9 +41,5 @@
 
   
 <%-- <%@ include file = "footer.jsp" %> --%>
-<script src="${pageContext.request.contextPath}/js/homesinfo.js">
-<!--
-
-//-->
-</script>
+<script src="${pageContext.request.contextPath}/js/homesinfo.js"></script>
 <c:import url = "footer.jsp"/>

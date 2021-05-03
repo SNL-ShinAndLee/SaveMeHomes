@@ -1,3 +1,7 @@
+*{
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 1.2rem;
+}
 .logo{
 	width : 10vw;
 	height : auto;

@@ -36,7 +36,6 @@ function sidoSelect(e){
 	
 	const sidoCode = selectedSido.querySelector("span").innerText;
 	const url = root + "/city?act=gugunlist&citycode=" + sidoCode;
-		  
 	fetch(url).then((response)=>{
 		return response.text();
 	}).then((text)=>{
@@ -44,7 +43,6 @@ function sidoSelect(e){
 	  
 		gugunListBody.innerHTML ="";
 		for(let i=0; i<gugunListJSON.length; ++i){
-			console.log(gugunListJSON[i]);
 			gugunListBody.innerHTML += `<li class="dropdown-item">` + gugunListJSON[i].cityGugun 
 										+ `<span class="d-none">` +gugunListJSON[i].cityCode + `</span>`
 									+ `</li>`;

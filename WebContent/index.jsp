@@ -19,8 +19,6 @@
   </div>
 </div>
 
-<%-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=Constants.getMapAPIKey()%>"></script>
-<script src="js/map.js"></script> --%>
 
 <%-- <%@ include file = "footer.jsp" %> --%>
 <c:import url = "footer.jsp"/>

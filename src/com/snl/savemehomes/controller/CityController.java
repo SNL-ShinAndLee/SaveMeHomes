@@ -58,10 +58,14 @@ public class CityController extends HttpServlet {
 		else if("homesinfo".equals(act)) {
 			homesInfo(request, response);
 		}
+		else if("dropdowndata".equals(act)) {
+			dropdownData(request, response);
+		}
 		else {
 			response.sendRedirect(root);
 		}
 	}
+	
 	
 	private void sidoList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -117,8 +121,6 @@ public class CityController extends HttpServlet {
 	
 	private void citySearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/search.jsp";
-		//매물 리스트를 보내줘야함..
-		
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 	
@@ -138,5 +140,16 @@ public class CityController extends HttpServlet {
 		SB.append("]");
 		response.getWriter().print(SB.toString());
 		
+	}
+	
+	private void dropdownData(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		long cityCode = Long.parseLong(request.getParameter("citycode"));
+		CityDto cityDto = cityService.getCity(cityCode);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("charset=utf-8");
+        
+        StringBuilder SB = new StringBuilder();
+		SB.append(cityDto.toJSONString());
+		response.getWriter().print(SB.toString());
 	}
 }

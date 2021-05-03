@@ -32,5 +32,9 @@ public class CityServiceImpl implements CityService {
 	public List<CityDto> getDongList(long citycode) {
 		return cityDao.readDong(citycode);
 	}
+	@Override
+	public CityDto getCity(long citycode) {
+		return cityDao.readCityByCityCode(citycode);
+	}
 
 }

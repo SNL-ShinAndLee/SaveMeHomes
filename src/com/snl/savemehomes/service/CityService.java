@@ -8,4 +8,5 @@ public interface CityService {
 	public List<CityDto> getSidoList();
 	public List<CityDto> getGugunList(long citycode);
 	public List<CityDto> getDongList(long citycode);
+	public CityDto getCity(long citycode);
 }

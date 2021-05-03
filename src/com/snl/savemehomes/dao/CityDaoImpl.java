@@ -188,4 +188,33 @@ public class CityDaoImpl implements CityDao {
 		return dongName;
 	}
 
+	@Override
+	public CityDto readCityByCityCode(long cityCode) {
+		CityDto city = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+		String query = "SELECT * FROM City "
+					+ "WHERE cityCode = " + cityCode;
+	    try {
+	    	conn = DBUtil.getConnect();
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				city = new CityDto();
+				city.setCityCode(cityCode);
+				city.setCitySido(rs.getString(2));
+				city.setCityGugun(rs.getString(3));
+				city.setCityDong(rs.getString(4));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(pstmt, conn);
+		}
+		return city;
+	}
+
 }
