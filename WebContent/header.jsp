@@ -133,7 +133,7 @@
               <label for="signUpId" class="form-label">ID</label>
               <div class="container">
                 <div class="row"> 
-                  <input type="text" class="col-9 form-control" id="signUpId" name="signUpId" style="width: 300px; margin-right: 13.5px;">
+                  <input type="text" class="col-9 form-control" id="signUpId" name="signUpId" style="width: 290px; margin-right: 10px;">
                   <button id="dupBtn" type="button" class="col-3 btn btn-danger">중복확인</button>
                 </div>
               </div>
