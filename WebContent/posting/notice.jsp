@@ -9,9 +9,9 @@
 <div class="fs-1 row justify-content-center">공지사항</div>
 
 <span class="d-flex flex-row-reverse">
-	<c:if test="${signInUser.getUserRole() == UserRole.ADMINISTRATOR}">
-		<button id="writebtn" type="button" class="btn btn-outline-dark">글쓰기</button>
-	</c:if>	
+   <c:if test="${signInUser.getUserRole() == UserRole.ADMINISTRATOR}">
+      <button id="writebtn" type="button" class="btn btn-outline-dark">글쓰기</button>
+   </c:if>   
 </span>
 <table class="table table-striped table-hover mt-5">
   <thead>
@@ -46,7 +46,7 @@
 </div>
 
 <div id="noticePageCount" class="d-none">
-	${noticePageCount}
+   ${noticePageCount}
 </div>
 
 <script src="${root}/js/notice.js"></script>
