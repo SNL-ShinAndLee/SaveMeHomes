@@ -3,7 +3,7 @@ const pagebtnlist = document.querySelectorAll("#noticePagination > li");
 
 function setNumberPagebtn(page) {
 	const pageCount = parseInt(document.getElementById("noticePageCount").innerText);
-	
+
 	if(pageCount < 5 || page <= 3){
 	    for(let i = 1 ;i <= 5; ++i){
 	        if(i > pageCount) pagebtnlist[i].classList.add("d-none");
@@ -51,7 +51,6 @@ function noticeListByPageNum(e) {
 		}
 		
 		const noticetr = document.querySelectorAll(".notice");
-		console.log(noticetr.length);
 		for (let i=0; i<noticetr.length; ++i) {
 			noticetr[i].addEventListener("click", getNotice);
 		}

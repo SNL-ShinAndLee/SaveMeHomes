@@ -51,7 +51,6 @@ function boardListByPageNum(e) {
 		}
 		
 		const boardtr = document.querySelectorAll(".board");
-		console.log(boardtr.length);
 		for (let i=0; i<boardtr.length; ++i) {
 			boardtr[i].addEventListener("click", getBoard);
 		}
